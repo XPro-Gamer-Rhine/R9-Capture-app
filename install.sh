@@ -8,13 +8,12 @@ DEST="/Applications/$APP_NAME"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
-echo "==> Fetching the latest R9 Capture release..."
-URL=$(curl -fsSL "https://api.github.com/repos/$REPO/releases/latest" |
-      grep browser_download_url | grep tar.gz | head -1 | cut -d'"' -f4)
-[ -n "$URL" ] || { echo "Could not find a release download."; exit 1; }
+# The /releases/latest/download/ redirect needs no API call, so it never
+# hits GitHub's anonymous rate limit.
+URL="https://github.com/$REPO/releases/latest/download/R9-Capture.tar.gz"
 
-echo "==> Downloading..."
-curl -fsSL "$URL" -o "$TMP/app.tar.gz"
+echo "==> Downloading the latest R9 Capture..."
+curl -fSL --retry 3 "$URL" -o "$TMP/app.tar.gz"
 tar -xzf "$TMP/app.tar.gz" -C "$TMP"
 
 echo "==> Installing to /Applications..."

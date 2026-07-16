@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R9 Capture — cinematic screen recording for macOS</title>
+<style>
+  :root { color-scheme: dark; }
+  * { margin: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0b0d12; color: #e8eaf0; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 64px 24px; text-align: center; }
+  .icon { width: 128px; height: 128px; border-radius: 28px; box-shadow: 0 18px 60px rgba(255,70,60,.25); }
+  h1 { font-size: 44px; margin: 24px 0 8px; }
+  .sub { color: #9aa1b0; font-size: 18px; max-width: 560px; margin: 0 auto 32px; }
+  .install { background: #161a22; border: 1px solid #2a3040; border-radius: 12px; padding: 16px 20px;
+             font-family: ui-monospace, monospace; font-size: 13px; color: #7ee787; text-align: left;
+             overflow-x: auto; white-space: nowrap; margin: 0 auto 14px; max-width: 720px; }
+  .hint { color: #6a7180; font-size: 12px; margin-bottom: 48px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; text-align: left; }
+  .card { background: #12151d; border: 1px solid #222839; border-radius: 14px; padding: 20px; }
+  .card h3 { font-size: 15px; margin-bottom: 6px; }
+  .card p { font-size: 13px; color: #9aa1b0; line-height: 1.5; }
+  .em { color: #ff5a4f; }
+  .badge { display: inline-block; background: #1b2130; border: 1px solid #2a3348; color: #9aa1b0;
+           border-radius: 999px; padding: 4px 12px; font-size: 11px; margin-bottom: 18px; }
+  footer { margin-top: 56px; color: #565d6b; font-size: 12px; }
+  footer a { color: #8b93a5; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <img class="icon" src="icon.png" alt="R9 Capture icon">
+  <h1>R9 Capture</h1>
+  <div class="badge">v1.0.0 · macOS 14+ · 100% Apple frameworks · Free</div>
+  <p class="sub">Screen recording with the moves you see in tech videos —
+  a hold-to-zoom focus key, draw-on-screen radial menu, and multi-monitor merge.</p>
+  <div class="install">curl -fsSL https://raw.githubusercontent.com/XPro-Gamer-Rhine/R9-Capture-app/main/install.sh | bash</div>
+  <p class="hint">One line in Terminal. Installs to /Applications, updates itself.</p>
+  <div class="grid">
+    <div class="card"><h3>🎯 Focus key</h3><p>Hold your key while recording and the <span class="em">video zooms to your cursor</span>, gliding as you move — your real screen stays untouched.</p></div>
+    <div class="card"><h3>🎡 Radial annotate</h3><p>A hotkey pops a tool wheel at your cursor <span class="em">mid-recording</span>: pen, highlighter, arrows, shapes, message bubbles, emoji, ruler, protractor, colors. The wheel never shows in the video.</p></div>
+    <div class="card"><h3>🖥 Multi-monitor merge</h3><p>Record every monitor at once, then arrange side-by-side with a divider, seamless ultrawide, or free drag &amp; resize — exported as <span class="em">one video up to 8K</span>.</p></div>
+    <div class="card"><h3>📸 Screenshots</h3><p>Full screen, drag-an-area, or all monitors stitched in your true desktop layout. Native Retina pixels.</p></div>
+    <div class="card"><h3>🎙 Audio, your call</h3><p>Two pills before you record: system audio and microphone. Both land as separate tracks.</p></div>
+    <div class="card"><h3>🍎 Native &amp; light</h3><p>ScreenCaptureKit + AVFoundation only. A menu-bar app — no dock clutter, no Electron, no third-party code.</p></div>
+  </div>
+  <footer>Part of the R9 family — <a href="https://github.com/XPro-Gamer-Rhine/R9-EQ-app">R9 EQ</a> ·
+  <a href="https://github.com/XPro-Gamer-Rhine/R9-Motion-app">R9 Motion</a> ·
+  <a href="https://github.com/XPro-Gamer-Rhine/R9-Music-app">R9 Music</a></footer>
+</div>
+</body>
+</html>

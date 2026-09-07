@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>R9 Capture — cinematic screen recording for macOS</title>
+<title>R9 Capture — cinematic screen recording for macOS and Windows</title>
 <style>
   :root { color-scheme: dark; }
   * { margin: 0; box-sizing: border-box; }
@@ -16,6 +16,8 @@
              font-family: ui-monospace, monospace; font-size: 13px; color: #7ee787; text-align: left;
              overflow-x: auto; white-space: nowrap; margin: 0 auto 14px; max-width: 720px; }
   .hint { color: #6a7180; font-size: 12px; margin-bottom: 48px; }
+  .os { color: #7d8598; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+        text-align: left; max-width: 720px; margin: 0 auto 6px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; text-align: left; }
   .card { background: #12151d; border: 1px solid #222839; border-radius: 14px; padding: 20px; }
   .card h3 { font-size: 15px; margin-bottom: 6px; }
@@ -31,10 +33,14 @@
 <div class="wrap">
   <img class="icon" src="icon.png" alt="R9 Capture icon">
   <h1>R9 Capture</h1>
-  <div class="badge">v1.2.3 · macOS 14+ · 100% Apple frameworks · Free</div>
+  <div class="badge">v1.9.1 · macOS 14+ and Windows 10 1903+ · no third-party code · Free</div>
   <p class="sub">Screen recording with the moves you see in tech videos —
   a hold-to-zoom focus key, draw-on-screen radial menu, and multi-monitor merge.</p>
+  <div class="os">macOS</div>
   <div class="install">curl -fsSL https://raw.githubusercontent.com/XPro-Gamer-Rhine/R9-Capture-app/main/install.sh | bash</div>
+  <div class="os">Windows</div>
+  <div class="install">irm https://raw.githubusercontent.com/XPro-Gamer-Rhine/R9-Capture-app/main/install.ps1 | iex</div>
+  <p class="hint">One line in Terminal or PowerShell. Installs per user, updates itself.</p>| bash</div>
   <p class="hint">One line in Terminal. Installs to /Applications, updates itself.</p>
   <div class="grid">
     <div class="card"><h3>🎯 Focus key</h3><p>Hold your key while recording and the <span class="em">video zooms to your cursor</span>, gliding as you move — your real screen stays untouched.</p></div>
@@ -44,7 +50,7 @@
     <div class="card"><h3>⏯ Pause &amp; see the frame</h3><p>A red outline shows exactly what's recording (amber while paused) and a floating bar gives pause / resume / stop — pausing leaves <span class="em">no gap</span> in the file.</p></div>
     <div class="card"><h3>📸 Screenshots</h3><p>Full screen, drag-an-area, or all monitors stitched in your true desktop layout. Native Retina pixels.</p></div>
     <div class="card"><h3>🎙 Audio, your call</h3><p>Two pills before you record: system audio and microphone — separate tracks, saved as <span class="em">MP4 or MOV</span>, your choice.</p></div>
-    <div class="card"><h3>🍎 Native &amp; light</h3><p>ScreenCaptureKit + AVFoundation only. A menu-bar app — no dock clutter, no Electron, no third-party code.</p></div>
+    <div class="card"><h3>🖥 Native on both</h3><p>ScreenCaptureKit + AVFoundation on the Mac; Windows.Graphics.Capture, Direct3D 11, Media Foundation and WASAPI on Windows. <span class="em">No third-party code either side.</span> Lives in the menu bar or the system tray — no dock clutter, no Electron.</p></div>
   </div>
   <footer>Made by Rhineul Islam · Part of the R9 family — <a href="https://github.com/XPro-Gamer-Rhine/R9-EQ-app">R9 EQ</a> ·
   <a href="https://github.com/XPro-Gamer-Rhine/R9-Motion-app">R9 Motion</a> ·

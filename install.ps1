@@ -48,7 +48,36 @@ function Invoke-R9CaptureInstall {
     $Owner   = 'XPro-Gamer-Rhine'
     $Repo    = 'R9-Capture-app'
     $AppName = 'R9 Capture'
-    $Home_   = Join-Path $env:LOCALAPPDATA $AppName
+
+    # Where to install.
+    #
+    # %LOCALAPPDATA% normally, but not when this script is being run from an
+    # MSIX-packaged terminal. Those redirect every write under AppData into
+    # their own container, so the app lands somewhere only that container can
+    # see: the Start-menu entry comes up with a blank icon and the right-click
+    # entry does nothing at all, because the path written into them does not
+    # exist for Explorer. Nothing reports an error — the file is simply not
+    # there. Outside AppData there is no redirection, so a packaged host gets
+    # the profile root instead.
+    # Asking the process whether it is packaged is not enough — a redirected
+    # shell can still report no package identity. So make the folder and look
+    # at where it actually went: a redirected one comes back with a Target
+    # under Packages\<host>\LocalCache.
+    function Test-Redirected([string] $Path) {
+        New-Item -ItemType Directory -Force -Path $Path | Out-Null
+        try {
+            $target = (Get-Item -LiteralPath $Path -Force).Target
+            if ($target) {
+                return [bool] (@($target) -match '\\Packages\\[^\\]+\\LocalCache\\')
+            }
+        } catch { }
+        return $false
+    }
+
+    $Home_ = Join-Path $env:LOCALAPPDATA $AppName
+    if (Test-Redirected $Home_) {
+        $Home_ = Join-Path $env:USERPROFILE $AppName
+    }
     $Exe     = Join-Path $Home_ 'R9Capture.exe'
     $RunKey  = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run'
     $UninstallKey = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\$AppName"
@@ -76,7 +105,18 @@ function Invoke-R9CaptureInstall {
         Remove-Item $Shortcut, $Desktop -ErrorAction SilentlyContinue
         Remove-ItemProperty -Path $RunKey -Name $AppName -ErrorAction SilentlyContinue
         Remove-Item $UninstallKey -Recurse -ErrorAction SilentlyContinue
-        Remove-Item $Home_ -Recurse -Force -ErrorAction SilentlyContinue
+        # Both candidate locations, so a copy left by an install that ran from
+        # a packaged terminal goes too.
+        foreach ($old in @($Home_, (Join-Path $env:LOCALAPPDATA $AppName), (Join-Path $env:USERPROFILE $AppName))) {
+            Remove-Item $old -Recurse -Force -ErrorAction SilentlyContinue
+        }
+        foreach ($key in @(
+            'HKCU:\Software\Classes\Directory\Background\shell\R9Capture',
+            'HKCU:\Software\Classes\Directory\shell\R9Capture',
+            'HKCU:\Software\Classes\DesktopBackground\shell\R9Capture',
+            'HKCU:\Software\Classes\R9Capture.Menu')) {
+            Remove-Item -LiteralPath $key -Recurse -Force -ErrorAction SilentlyContinue
+        }
         Say 'Removed. Your settings in %APPDATA%\R9 Capture were left alone.' 'Green'
         Say ''
         return
